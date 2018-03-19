@@ -1,0 +1,19 @@
+def circle_average(bearings):
+    """Returns the average bearing of a list of bearings,
+    measured in degrees. Returns the average angle in degrees.""" 
+    # Convert to radians
+    bearings = bearings*np.pi/180.
+    # measured around north (9) and east (90)
+    n        = np.cos(bearings)
+    e        = np.sin(bearings)
+    navg     = np.mean(n)
+    eavg     = np.mean(e)
+    # arctangent produces values from -pi/2 to +pi/2 : appropriate for n>0
+    # arctan(n/e) with n>0 is equal to arctan(n/-e) with n<0
+    if navg > 0:
+        avg_angle = np.arctan(eavg/navg)
+    else:
+        avg_angle = np.arctan(eavg/navg) + np.pi
+        
+    # return value in degrees
+    return avg_angle/np.pi*180.
